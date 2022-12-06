@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Calendara{% endblock %}</title>
         <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-        <link rel="stylesheet" href="{% static 'CalShare/uaa490styles.css' %}" >
+        <link rel="stylesheet" type="text/css" href="{% static 'CalShare/uaa490styles.css' %}" >
 
     </head>
     <body>
@@ -17,7 +17,7 @@
             <nav>
                 <span>
                     {% if user.is_authenticated %}
-                        <a href="#">Active Listings</a>
+                        <a href="#">Explore</a>
                         <a href="#">Categories</a>
                         <a id="watchlist_count" href="#">Watchlist</a>
                         <a href="#">Create Listing</a>
@@ -47,12 +47,14 @@
 
     </body>
     <footer>
-        <span>
+        <div>
         <a href="https://github.com/KeithAverre/Calandara">
             <i>Project Github</i></a>
         <br>&copy; Keith Averre, 2022
-</span>
-        <span style="display: flex">asd</span>
+        </div>
+        <div>
+            asd
+        </div>
 
 </footer>
 </html>

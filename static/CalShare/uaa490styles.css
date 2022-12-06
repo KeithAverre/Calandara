@@ -9,7 +9,13 @@ body > header {
 }
 
 body {
+
   grid-template-columns: 10% 80% 10%;
+}
+
+footer > div {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
 }
 
 .form-control {
@@ -23,7 +29,4 @@ body {
 .material-symbols-outlined:hover {
   color: aqua;
   font-size: x-large;
-
-
-
 }
