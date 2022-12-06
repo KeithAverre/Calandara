@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# Create your models here.
+
+from PIL import Image #for image field
+from django.core.files import File
+from urllib.request import urlopen
+from tempfile import NamedTemporaryFile
 
 
 # User:
@@ -9,14 +13,14 @@ from django.contrib.auth.models import AbstractUser
 #       -Calendars: ManyToMany relationship (a user can have many calendars, a calendar can be owned by many users
 #
 class User(AbstractUser):
-
     pass
 
 # Profile:
-#       -profile img (add picture functionality
+#       -image: imageField (add picture functionality
 #       -User: foreign key to User. 1-1
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_user")
+    image = models.ImageField(upload_to='images/profiles', blank=True)
     pass
 
 
@@ -34,26 +38,34 @@ class Category(models.Model):
         return self.name
 
 
+
+
+# Calendar:
+#       Title: Charfield
+#       Category: ManyToMany to Category
+#       owner: Foreign key relationship with User
+#       watchers: people who have added to their watching
+#       description: textfield
+#       image: imageField
+#
+class Calender(models.Model):
+    title = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="calendar_owner")
+    categories = models.ManyToManyField(Category, blank=True, related_name="calendars")
+    watchers = models.ManyToManyField(User, blank=True, related_name="watched_calendars")
+    description = models.TextField(max_length=500)
+    image = models.ImageField(upload_to='images/calendars', blank=True)
+
 # Event:
 #       Title: Charfield
+#       calendar: foreign key to Calendar
 #       Start_time: time (maybe)
 #       End_time:   time
 #       Start_day: date
 #       End_day:  date
 class Event(models.Model):
-    pass
-
-# Calendar:
-#       Title: Charfield
-#       Category: ManyToMany to Category
-#       Admin: Foreign key relationship with User
-#       Events: foreign key. 1-M
-#
-#
-#
-class Calender(models.Model):
     title = models.CharField(max_length=50)
-    categories = models.ManyToManyField(Category, blank=True, related_name="calendars")
+    calendar = models.ForeignKey(Calender, on_delete=models.CASCADE,related_name="event")
     pass
 
 # Comment:
@@ -66,3 +78,6 @@ class Comment(models.Model):
     commentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     calendar = models.ForeignKey(Calender, on_delete=models.CASCADE, related_name="comments")
     comment = models.TextField(max_length=500)
+
+    def __str__(self):
+        return f'{self.comment}'
