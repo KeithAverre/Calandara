@@ -14,6 +14,9 @@ from .models import User
 def index(request):
     return render(request, "CalShare/index.html")
 
+def explore(request):
+    return render(request, "CalShare/trying.html")
+
 """
 This is the login section for users
 """

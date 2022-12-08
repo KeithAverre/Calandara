@@ -1,9 +1,14 @@
+{% extends "CalShare/layout.html" %}
+{% load static %}
 
-  <div id='script-warning'>
+{% block main %}
+
+<div id='script-warning'>
     <code>ics/feed.ics</code> must be servable
   </div>
 
   <div id='loading'>loading...</div>
 
   <div id='calendar'></div>
+{% endblock %}
 
