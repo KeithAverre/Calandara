@@ -15,8 +15,23 @@ def index(request):
     return render(request, "CalShare/index.html")
 
 def explore(request):
-    return render(request, "CalShare/trying.html")
+    return render(request, "CalShare/explore.html")
 
+def calendar(request, id):
+    pass
+
+#search: Calendar: title, description**,
+#       Events: name
+def search(request, term):
+    pass
+
+def random_calendar(request):
+    pass
+
+def my_calendars(request):
+    pass
+
+4
 """
 This is the login section for users
 """
@@ -70,3 +85,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "CalShare/register.html")
+
+
+#This function is to reset a user's password
+#   todo: Setup SendGrid
+#
+#
+@login_required(login_url='login')
+def change_password(request):
+    pass

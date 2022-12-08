@@ -9,11 +9,8 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'CalShare/simple.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'CalShare/uaa490styles.css' %}" >
-        <link rel="stylesheet" type="text/css" href="{% static 'CalShare/calendar.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'CalShare/calendar.css' %}">
-<script src='https://github.com/mozilla-comm/ical.js/releases/download/v1.4.0/ical.js'></script>
-<script src='{% static "CalShare/main.min.js" %}'></script>
-<script src="{% static 'CalShare/new_calendar.js' %}"></script>
+
+
 
 
     </head>
@@ -42,6 +39,9 @@
                     {% endif %}
                 </span>
             </nav>
+            <form action="#" style="text-align: left">
+                    <input class="search" type="text" name="q" placeholder="Search Calendara" id="q">
+            </form>
         </header>
         <main>
 
@@ -67,6 +67,6 @@
 
 </footer>
 
-
+    {% include "CalShare/calendar_scripts.html" %}
 
 </html>
