@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,13 +18,10 @@
                     {% if user.is_authenticated %}
                         <a href="#">Explore</a>
                         <a href="#">Categories</a>
-                        <a id="watchlist_count" href="#">Watchlist</a>
-                        <a href="#">Create Listing</a>
-                        <a href="#">My listings</a>
-                        <a href="#">My Wins</a>
-
+                        <a href="#">Create new calendar</a>
+                        <a href="#">My Calendars</a>
                     {% else %}
-                        <a href="#">Active Listings</a>
+                        <a href="#">Explore</a>
                         <a href="#">Categories</a>
                     {% endif %}
                 </span>
@@ -62,4 +58,7 @@
         </div>
 
 </footer>
+
+    {% include "CalShare/calendar_scripts.html" %}
+
 </html>

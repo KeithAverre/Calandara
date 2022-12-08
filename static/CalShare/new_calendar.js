@@ -1,15 +1,3 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset='utf-8' />
-    <link rel="stylesheet" href="{% static 'CalShare/calendar.css' %}">
-<script src='https://github.com/mozilla-comm/ical.js/releases/download/v1.4.0/ical.js'></script>
-<script src="{% static  'CalShare/main.min.js' %}"></script>
-<script>
-
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -59,19 +47,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
   });
-
-</script>
-
-</head>
-<body>
-
-  <div id='script-warning'>
-    <code>ics/feed.ics</code> must be servable
-  </div>
-
-  <div id='loading'>loading...</div>
-
-  <div id='calendar'></div>
-
-</body>
-</html>

@@ -12,6 +12,8 @@ body {
   display: grid;
 
   grid-template-columns: 10% 80% 10%;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 footer > div {
