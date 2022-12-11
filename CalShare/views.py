@@ -31,6 +31,14 @@ def random_calendar(request):
 def my_calendars(request):
     pass
 
+
+#this is to render contact us page
+def contact_us(request):
+    pass
+
+#this handles contacts us form
+def contact_us_confirm(request):
+    pass
 4
 """
 This is the login section for users

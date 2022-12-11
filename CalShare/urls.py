@@ -16,4 +16,7 @@ urlpatterns = [
 
     path("search/<str:term>", views.search, name="search"),
     path("random_calendar/", views.random_calendar, name="random_calendar"),
+
+    path("contact_us", views.contact_us, name="contact_us"),
+    path("contact_us_confrim", views.contact_us_confrim, name="contact_us_confrim"),
 ]
