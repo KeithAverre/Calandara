@@ -1,0 +1,19 @@
+{% extends "CalShare/layout.html" %}
+
+
+{% block main %}
+    <h3>Please enter the following information to contact us.</h3>
+    <form action="{% url 'contact_us_confirm' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input  autofocus type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+            <input  type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="comment" placeholder="Your message" required>
+        </div>
+        <input type="submit">
+    </form>
+{% endblock %}

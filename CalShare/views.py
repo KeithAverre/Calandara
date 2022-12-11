@@ -34,11 +34,13 @@ def my_calendars(request):
 
 #this is to render contact us page
 def contact_us(request):
-    pass
+    return render(request, "CalShare/contact_us.html")
 
 #this handles contacts us form
 def contact_us_confirm(request):
-    pass
+
+    #send email to email if valid email
+    return render(request, "CalShare/contact_us_confirm.html")
 4
 """
 This is the login section for users
