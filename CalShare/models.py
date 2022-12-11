@@ -22,7 +22,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_user")
     image = models.ImageField(upload_to='images/profiles', blank=True)
-    pass
+
 
 
 # Category:
@@ -44,14 +44,14 @@ class Category(models.Model):
 # Calendar:
 #       Title: Charfield
 #       Category: ManyToMany to Category
-#       owner: Foreign key relationship with User
+#       owner: ManyToMany relationship with User
 #       watchers: people who have added to their watching
 #       description: textfield
 #       image: imageField
 #
 class Calender(models.Model):
     title = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="calendar_owner")
+    owner = models.ManyToManyField(User, related_name="calendar_owner")
     categories = models.ManyToManyField(Category, blank=True, related_name="calendar_categories")
     watchers = models.ManyToManyField(User, blank=True, related_name="watched_calendars")
     description = models.TextField(max_length=500, blank=True)
@@ -72,7 +72,7 @@ class Event(models.Model):
     end_day = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
-    pass
+
 
 # Comment:
 #       created_at: datetimefield

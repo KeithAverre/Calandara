@@ -34,7 +34,7 @@
                 </span>
                 <span>
                     {% if user.is_authenticated %}
-                        Welcome <strong>{{ user.username }}!</strong>
+                        Welcome <strong><a href="{% url 'profile' user.id %}">{{ user.username }}!</a></strong>
                         <a href="{% url 'logout' %}">Log Out</a>
                     {% else %}
                         <a href="{% url 'login' %}">Log In</a>

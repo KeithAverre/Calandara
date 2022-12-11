@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
 
-from .models import User
+from .models import *
 
 
 def index(request):
@@ -43,6 +43,12 @@ def contact_us_confirm(request):
     return render(request, "CalShare/contact_us_confirm.html")
 
 
+def change_password(request):
+    return render(request, "CalShare/change_password.html")
+def change_password_confirm(request):
+    return render(request, "CalShare/change_password_confirm.html")
+    pass
+
 from django.http import JsonResponse
 
 
@@ -52,6 +58,15 @@ def api_event_create(request):
     else:
         pass
 
+def profile(request, id):
+    if request.user.is_authenticated and request.user.id == id:
+        context = {"user": request.user, "picture": Profile.objects.all()}
+        return render(request, "CalShare/profile.html", context)
+    else:
+        if request.user.is_authenticated:
+            return redirect("profile", id=request.user.pk)
+        else:
+            return redirect("login")
 """
 This is the login section for users
 """
@@ -66,6 +81,10 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            try:
+                Profile.objects.get(pk=User.objects.get(username=username))
+            except:
+                Profile.objects.create(user=User.objects.get(username=username))
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "CalShare/login.html", {
@@ -107,10 +126,3 @@ def register(request):
         return render(request, "CalShare/register.html")
 
 
-#This function is to reset a user's password
-#   todo: Setup SendGrid
-#
-#
-@login_required(login_url='login')
-def change_password(request):
-    pass

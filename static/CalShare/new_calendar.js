@@ -111,6 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function e_addEvent(name, start_date, start_time, end_date, end_time ) {
       //this is where I fetch to django server
+      console.log("hi")
+      dialog.dialog( "close" );
       return {"name": name,
               "start_date": start_date,
               "start_time": start_time,
@@ -136,15 +138,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       },
       close: function() {
-        form.reset();
+        form[0].reset();
       }
     });
 
     form = dialog.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
+      console.log("sad")
       return e_addEvent(name, start_date, start_time, end_date, end_time);
     });
-
       dialog.dialog( "open" );
 
 
@@ -165,16 +167,19 @@ document.addEventListener('DOMContentLoaded', function() {
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectMirror: true,
-      select: function() {
+      select: function(arg) {
         //var title = prompt('Event Title:');
-
+          //document.getElementById("#start_date").setAttribute('value',arg.start);
+          //document.getElementById("#end_date").setAttribute('value',arg.end);
+        console.log(document.getElementById("#end_date").value)
+          document.getElementById("#end_date").value = arg.end;
         //if (title) {
         var eve = making_event();
-
+        console.log(eve)
           calendar.addEvent({ //intercept here
-            title: eve.name,
-            start: eve.start_date,
-            end: eve.end_date,
+            title: eve['name'],
+            start: eve['start_date'],
+            end: eve['end_date'],
             //allDay: true
           })
        // }
