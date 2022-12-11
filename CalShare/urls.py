@@ -23,5 +23,6 @@ urlpatterns = [
     path("change_password_confirm", views.change_password_confirm, name="change_password_confirm"),
 
     path("api_event_create", views.api_event_create, name = "api_event_create"),
-    path("profile/<int:id>", views.profile, name="profile")
+    path("profile/<int:id>", views.profile, name="profile"),
+    path("profile_change", views.profile_change, name="profile_change"),
 ]

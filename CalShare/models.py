@@ -13,16 +13,7 @@ from tempfile import NamedTemporaryFile
 #       -Calendars: ManyToMany relationship (a user can have many calendars, a calendar can be owned by many users
 #
 class User(AbstractUser):
-    pass
-
-# Profile:
-#       -image: imageField (add picture functionality
-#       -User: foreign key to User. 1-1
-#
-class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_user")
     image = models.ImageField(upload_to='images/profiles', blank=True)
-
 
 
 # Category:

@@ -8,8 +8,8 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
 
-from .models import *
-
+from .models import User
+from .forms import UserForm
 
 def index(request):
     return render(request, "CalShare/index.html")
@@ -46,6 +46,13 @@ def contact_us_confirm(request):
 def change_password(request):
     return render(request, "CalShare/change_password.html")
 def change_password_confirm(request):
+    if request.method == "POST":
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "CalShare/register.html", {
+                "message": "Passwords must match."
+            })
     return render(request, "CalShare/change_password_confirm.html")
     pass
 
@@ -60,13 +67,30 @@ def api_event_create(request):
 
 def profile(request, id):
     if request.user.is_authenticated and request.user.id == id:
-        context = {"user": request.user, "picture": Profile.objects.all()}
+        context = {"user": request.user, "picture": User.objects.get(pk=request.user.id).image, "form":UserForm(instance= User.objects.get(pk=request.user.id))}
+
         return render(request, "CalShare/profile.html", context)
     else:
         if request.user.is_authenticated:
             return redirect("profile", id=request.user.pk)
         else:
             return redirect("login")
+
+import os
+from Calendara.settings import MEDIA_ROOT
+def profile_change(request):
+    if request.method == "POST":
+
+        form = UserForm(request.POST, request.FILES, instance= User.objects.get(pk=request.user.id))
+        if form.is_valid():
+            #replace old picture
+            print(User.objects.get(pk=request.user.id).image, "hi")
+            if User.objects.get(pk=request.user.id).image != "":
+                os.remove(f'{MEDIA_ROOT}\\{User.objects.get(pk=request.user.id).image}')
+            form.save()
+
+    return redirect("profile",id=request.user.pk)
+    pass
 """
 This is the login section for users
 """
@@ -81,10 +105,10 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            try:
-                Profile.objects.get(pk=User.objects.get(username=username))
-            except:
-                Profile.objects.create(user=User.objects.get(username=username))
+            # try:
+            #     User.objects.get(pk=request.user.id)
+            # except:
+            #     Profile.objects.create(user=User.objects.get(username=username))
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "CalShare/login.html", {

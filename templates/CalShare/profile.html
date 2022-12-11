@@ -3,10 +3,25 @@
 
 {% block main %}
     <h3>User Profile</h3>
-
+    <h3>
+    <br>
     name: {{ user.username }}
-
+    <br>
     email: {{ user.email }}
+    <br>
+    {% if user.image %}
+        picture: <a href = "../media/{{ user.image }}"><img src="../media/{{ user.image }}" width= 500px height= 500px alt="{{ picture }}"></a>
+    {% else %}
+        Picture: Not available
+    {% endif %}
+    </h3>
 
-    picture: {{ picture }}
+    <p>Change your information</p>
+    <form action="{% url 'profile_change' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Change">
+    <input type="reset" name="reset" value="Reset">
+    </form>
+
 {% endblock %}

@@ -34,8 +34,9 @@
                 </span>
                 <span>
                     {% if user.is_authenticated %}
-                        Welcome <strong><a href="{% url 'profile' user.id %}">{{ user.username }}!</a></strong>
                         <a href="{% url 'logout' %}">Log Out</a>
+                        <a style="border-width: 0px " href = "{% url 'profile' user.id %}"><img style="border-radius: 50%" src="../media/{{ user.image }}" width= 50px height= 50px alt="profile page"></a>
+
                     {% else %}
                         <a href="{% url 'login' %}">Log In</a>
                         <a href="{% url 'register' %}">Register</a>
@@ -67,7 +68,7 @@
         </div>
         <div>
                 <a href="{% url 'contact_us' %}">Contact us</a>
-                {% include "CalShare/event_create_form.html" %}
+
         </div>
     </div>
 </footer>
