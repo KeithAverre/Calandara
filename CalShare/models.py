@@ -66,7 +66,7 @@ class Calender(models.Model):
 #       End_day:  date
 class Event(models.Model):
     title = models.CharField(max_length=50)
-    calendar = models.ForeignKey(Calender, on_delete=models.CASCADE,related_name="event")
+    calendar = models.ForeignKey(Calender, on_delete=models.CASCADE,related_name="events")
     #datetime https://www.geeksforgeeks.org/datetimefield-django-models/
     start = models.DateTimeField()
     end = models.DateTimeField()
