@@ -10,6 +10,9 @@
         <link rel="stylesheet" type="text/css" href="{% static 'CalShare/simple.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'CalShare/uaa490styles.css' %}" >
 
+        <!--------for JQuery UI--------------------->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        </link rel="stylesheet" href="/resources/demos/style.css">
 
 
 
@@ -53,25 +56,22 @@
     <footer>
         <div>
         <div>
-
                 <a href="https://github.com/KeithAverre/Calandara">
             <i>Project Github</i></a>
             <br>&copy; Keith Averre, 2022
-
         </div>
         <div>
-
-                asd
-
+                <div id="dialog" title="Event Creation">
+                    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the &apos;x&apos; icon.</p>
+                </div>
         </div>
         <div>
-
                 <a href="{% url 'contact_us' %}">Contact us</a>
-
+                {% include "CalShare/event_create_form.html" %}
         </div>
     </div>
 </footer>
 
     {% include "CalShare/calendar_scripts.html" %}
-
+    {% include "CalShare/dialog_scripts.html" %}
 </html>

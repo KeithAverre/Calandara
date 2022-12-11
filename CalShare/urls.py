@@ -19,4 +19,7 @@ urlpatterns = [
 
     path("contact_us", views.contact_us, name="contact_us"),
     path("contact_us_confirm", views.contact_us_confirm, name="contact_us_confirm"),
+
+
+    path("api_event_create", views.api_event_create, name = "api_event_create"),
 ]

@@ -41,7 +41,17 @@ def contact_us_confirm(request):
 
     #send email to email if valid email
     return render(request, "CalShare/contact_us_confirm.html")
-4
+
+
+from django.http import JsonResponse
+
+
+def api_event_create(request):
+    if request.user.is_authenticated:
+        pass
+    else:
+        pass
+
 """
 This is the login section for users
 """

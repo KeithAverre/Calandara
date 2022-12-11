@@ -52,9 +52,9 @@ class Category(models.Model):
 class Calender(models.Model):
     title = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="calendar_owner")
-    categories = models.ManyToManyField(Category, blank=True, related_name="calendars")
+    categories = models.ManyToManyField(Category, blank=True, related_name="calendar_categories")
     watchers = models.ManyToManyField(User, blank=True, related_name="watched_calendars")
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True)
     image = models.ImageField(upload_to='images/calendars', blank=True)
 
 # Event:
@@ -68,8 +68,10 @@ class Event(models.Model):
     title = models.CharField(max_length=50)
     calendar = models.ForeignKey(Calender, on_delete=models.CASCADE,related_name="events")
     #datetime https://www.geeksforgeeks.org/datetimefield-django-models/
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    start_day = models.DateField()
+    end_day = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     pass
 
 # Comment:
