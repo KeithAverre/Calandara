@@ -42,6 +42,7 @@
                 <span>
                     {% if user.is_authenticated %}
                         <a href="{% url 'logout' %}">Log Out</a>
+
                         <a style="border-width: 0px " href = "{% url 'profile' user.id %}"><img style="border-radius: 50%" src="../media/{{ user.image }}" width= 50px height= 50px alt="profile page"></a>
 
                     {% else %}
@@ -76,7 +77,7 @@
                 <div id="event_form_help" style="visibility: hidden">
                     Add the following information to create your event:
                 </div>
-                <form id="event_form" >
+                <form action="#" id="event_form" >
                     {% csrf_token %}
                     {{ event_form.as_p }}
                     <input type="submit" id="submit_new_event">

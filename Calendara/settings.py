@@ -114,6 +114,9 @@ USE_I18N = True
 
 USE_L10N = True
 
+TIME_FORMAT = 'G'
+DATE_INPUT_FORMATS = "%Y-%m-%d"
+
 USE_TZ = True
 
 

@@ -92,6 +92,21 @@
 //     calendar.render();
 //   });
 document.addEventListener('DOMContentLoaded', function() {
+    //credit to https://www.youtube.com/watch?v=P-jKHhr6YxI for exactly what I needed to get formdata out of form
+    var helper = Array.from(document.querySelectorAll('#event_form input' )).reduce((acc, input) =>({...acc,[input.id]:input.value}),{});
+    document.getElementById("submit_new_event").addEventListener("click", function (){
+        console.log(helper);
+        fetch(`/api_async_create/${helper}`)
+            .then(response => response.json())
+            .then(data => {
+
+
+            })
+            .catch(error => {
+                console.log("*** api_create_event **", error);
+            })
+    });
+
 
     function create_event() {
 
@@ -114,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //     e.preventDefault();
         // } )
         dialog_box()
-        return data
+        return event_form
     }
     function dialog_box() {
         var dialog
@@ -137,7 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
         );
         dialog.dialog("open");
     };
+    function click_catcher(){
 
+    }
 
     var calendarEl = document.getElementById('calendar');
 
@@ -161,9 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
             //if (title) {
 
             // calendar.addEvent({ //intercept here
-            //     title: eve['name'],
-            //     start: eve['start_date'],
-            //     end: eve['end_date'],
+            //     title: ,
+            //     start: ,
+            //     end: ,
             //     //allDay: true
             // })
             // }

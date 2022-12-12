@@ -138,6 +138,19 @@ def api_event_create(request, parent_cal):
     else:
         return JsonResponse({})
 
+def api_async_create(request,data):
+    if request.user.is_authenticated:
+        print(data)
+        context = {
+            "cal_owner": request.user.username,
+
+
+        }
+        print(f'api_event_create called. returning {context}')
+        return JsonResponse({})
+    else:
+        return JsonResponse({})
+
 def profile(request, id):
     if request.user.is_authenticated and request.user.id == id:
         context = {"user": request.user, "picture": User.objects.get(pk=request.user.id).image, "form":UserForm(instance= User.objects.get(pk=request.user.id))}
