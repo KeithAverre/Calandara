@@ -21,6 +21,7 @@ def explore(request):
     return render(request, "CalShare/explore.html",context)
 
 def calendar(request, id):
+
     try:
         cal = Calender.objects.get(pk=id)
     except:
@@ -52,6 +53,19 @@ def new_calendar(request):
         "calendar_form": CalendarForm(),
     }
     return render(request,"CalShare/new_calendar.html", context)
+@login_required(login_url="login")
+def new_event(request,parent_cal):
+    if(User.objects.get(pk=request.user.id) != Calender.objects.get(pk = parent_cal).owner):
+        return redirect("index")
+    else:
+        form = EventForm(request.POST)
+        if form.is_valid():
+            eve = form.save(commit=False)
+            eve.calendar = Calender.objects.get(pk = parent_cal)
+            eve.save()
+            return redirect("calendar", id=parent_cal)
+        else:
+            return redirect("index")
 
 #search: Calendar: title, description**,
 #       Events: name
@@ -95,7 +109,10 @@ def random_calendar(request):
     return redirect("calendar", id=k.pk)
 
 def my_calendars(request):
-    pass
+    context = {
+        "all_calendars": Calender.objects.filter(owner=User.objects.get(pk=request.user.id)),
+    }
+    return render(request, "CalShare/my_calendars.html", context)
 
 
 #this is to render contact us page
@@ -150,6 +167,16 @@ def api_async_create(request,data):
         return JsonResponse({})
     else:
         return JsonResponse({})
+
+def api_get_events(request, parent_cal):
+    parent = Calender.objects.get(pk=parent_cal)
+    eves = Event.objects.filter(calendar = parent)
+    print(eves)
+    context={}
+    for i in range(len(eves)):
+        context[f'{i}'] = {"title":eves[i].title, "start_day":eves[i].start_day, "end_day": eves[i].end_day,"start_time":eves[i].start_time, "end_time": eves[i].end_time }
+    print(context)
+    return JsonResponse(context)
 
 def profile(request, id):
     if request.user.is_authenticated and request.user.id == id:

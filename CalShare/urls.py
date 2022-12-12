@@ -17,6 +17,7 @@ urlpatterns = [
 
     path("search", views.search, name="search"),
     path("random_calendar/", views.random_calendar, name="random_calendar"),
+    path("new_event/<int:parent_cal>", views.new_event, name="new_event"),
 
     path("contact_us", views.contact_us, name="contact_us"),
     path("contact_us_confirm", views.contact_us_confirm, name="contact_us_confirm"),
@@ -25,6 +26,7 @@ urlpatterns = [
 
     path("api_event_create/<int:parent_cal>", views.api_event_create, name = "api_event_create"),
     path("api_async_create/<str:data>", views.api_async_create, name="api_async_create"),
+    path("api_get_events/<int:parent_cal>", views.api_get_events, name="api_get_events"),
     path("profile/<int:id>", views.profile, name="profile"),
     path("profile_change", views.profile_change, name="profile_change"),
 ]
