@@ -31,12 +31,12 @@
                 <span>
                     {% if user.is_authenticated %}
                         <a href="{% url 'explore' %}">Explore</a>
-                        <a href="#">Categories</a>
+
                         <a href="{% url 'new_calendar' %}">Create new calendar</a>
                         <a href="#">My Calendars</a>
                     {% else %}
                         <a href="{% url 'explore' %}">Explore</a>
-                        <a href="#">Categories</a>
+
                     {% endif %}
                 </span>
                 <span>
@@ -72,9 +72,16 @@
         </div>
         <div>
                 <a href="{% url 'contact_us' %}">Contact us</a>
-                <div class="event_form_help" style="visibility: hidden">
-                    hi
+                {% if event_form %}
+                <div id="event_form_help" style="visibility: hidden">
+                    Add the following information to create your event:
                 </div>
+                <form id="event_form" >
+                    {% csrf_token %}
+                    {{ event_form.as_p }}
+                    <input type="submit" id="submit_new_event">
+                </form>
+                {% endif %}
         </div>
     </div>
 </footer>

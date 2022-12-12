@@ -30,7 +30,7 @@ def calendar(request, id):
         return render(request,"CalShare/calendar.html",context)
     context={
         "calendar": cal,
-
+        "event_form": EventForm(),
     }
     return render(request,"CalShare/calendar.html",context)
 
@@ -127,10 +127,11 @@ from django.http import JsonResponse
 
 def api_event_create(request, parent_cal):
     if request.user.is_authenticated:
+
         context = {
-            "cal_owner": request.user,
+            "cal_owner": request.user.username,
             "parent_cal": parent_cal,
-            "event_form": EventForm(),
+
         }
         print(f'api_event_create called. returning {context}')
         return JsonResponse(context)
