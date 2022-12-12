@@ -1,0 +1,12 @@
+{% extends "CalShare/layout.html" %}
+
+
+{% block main %}
+    <h3 style="text-align: left; display: inline">{{ calendar.title }}</h3><h3 style="text-align: right"><a href = "../../media/{{ calendar.image }}"><img src="../../media/{{ calendar.image }}" width= 500px height= 500px alt="{{ calendar.image }}"></a></h3>
+    <br>
+    <p>{{ calendar.description }}</p>
+
+    <article>
+        {% include "CalShare/calendar_template.html" %}
+    </article>
+{% endblock %}

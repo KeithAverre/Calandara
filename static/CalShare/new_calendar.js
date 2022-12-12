@@ -92,6 +92,8 @@
 //     calendar.render();
 //   });
 document.addEventListener('DOMContentLoaded', function() {
+
+
     function making_event() {
     var dialog, form,
 

@@ -1,0 +1,33 @@
+{% extends "CalShare/layout.html" %}
+
+
+{% block main %}
+    {% if msg %}
+        <article>
+            {{ msg }}
+        </article>
+    {% else %}
+    <article>
+        <div>
+            Title search:
+            {% for i in title_s %}
+            <div>-<a style="color: orange" href="{% url 'calendar' id=i.pk %}">{{ i.title }}</a></div>
+            {% endfor %}
+        </div>
+        <br>
+        <div>
+            description search:
+            {% for i in descr_s %}
+            <div>-<a style="color: orange" href="{% url 'calendar' id=i.pk %}">{{ i.title }}</a></div>
+            {% endfor %}
+        </div>
+        <br>
+        <div>
+            Event search:
+            {% for i in event_s %}
+            <div>-<a style="color: orange" href="{% url 'calendar' id=i.calendar.pk %}">{{ i.calendar.title }}</a></div>
+            {% endfor %}
+        </div>
+    </article>
+    {% endif %}
+{% endblock %}

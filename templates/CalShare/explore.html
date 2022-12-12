@@ -2,5 +2,11 @@
 {% load static %}
 
 {% block main %}
+    {% for calender in all_calendars %}
+    <article>
+
+    </article>
+    {% endfor %}
+
     {% include "CalShare/calendar_template.html" %}
 {% endblock %}

@@ -15,7 +15,7 @@ body {
 
   grid-template-columns: 10% 80% 10%;
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 footer > div {
@@ -24,7 +24,7 @@ footer > div {
   grid-gap: 0px;
 }
 /*make footer links nice*/
-footer > div > div >  a, footer > div > div > a:visited {
+footer > div > div >  a, footer > div > div > a:visited{
     color: orange;
 }
 .footer_article {

@@ -42,7 +42,7 @@ class Category(models.Model):
 #
 class Calender(models.Model):
     title = models.CharField(max_length=50)
-    owner = models.ManyToManyField(User, related_name="calendar_owner")
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,default=None, related_name="calendar_owner")
     categories = models.ManyToManyField(Category, blank=True, related_name="calendar_categories")
     watchers = models.ManyToManyField(User, blank=True, related_name="watched_calendars")
     description = models.TextField(max_length=500, blank=True)

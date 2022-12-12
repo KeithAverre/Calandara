@@ -8,25 +8,91 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
 
-from .models import User
-from .forms import UserForm
+from .models import User,Event,Calender,Category
+from .forms import UserForm, EventForm, CalendarForm
 
 def index(request):
     return render(request, "CalShare/index.html")
 
 def explore(request):
-    return render(request, "CalShare/explore.html")
+    context = {
+        "all_calendars": Calender.objects.all(),
+    }
+    return render(request, "CalShare/explore.html",context)
 
 def calendar(request, id):
-    pass
+    try:
+        cal = Calender.objects.get(pk=id)
+    except:
+        context = {
+            "msg" : f'Calendar {id} not found'
+        }
+        return render(request,"CalShare/calendar.html",context)
+    context={
+        "calendar": cal,
+
+    }
+    return render(request,"CalShare/calendar.html",context)
+
+@login_required(login_url="login")
+def new_calendar(request):
+    if request.method == "POST":
+        form = CalendarForm(request.POST, request.FILES)
+        if form.is_valid():
+            adjusted_form = form.save(commit=False)
+            adjusted_form.owner = User.objects.get(username=request.user.username)
+            adjusted_form.save()
+            form.save_m2m() #required due to not committing it before
+            return redirect("calendar", id=adjusted_form.pk)
+        else:
+            pass
+    else:
+        pass
+    context={
+        "calendar_form": CalendarForm(),
+    }
+    return render(request,"CalShare/new_calendar.html", context)
 
 #search: Calendar: title, description**,
 #       Events: name
-def search(request, term):
-    pass
+def search(request):
+    term = request.GET["q"]
+    all_cal = Calender.objects.all()
+    all_events = Event.objects.all()
+    context={
 
+    }
+    title_s = []
+    descr_s = []
+    event_s =[]
+    if(term != None or term != ""):
+        #title search:
+        for i in all_cal:
+
+            if(term in i.title):
+                title_s.append(i)
+                # return redirect("calendar", id=i.pk)
+            if(term in i.description):
+                descr_s.append(i)
+        for f in all_events:
+            if (term in f.title):
+                event_s.append(f)
+        if((len(title_s) + len(descr_s) + len(event_s)) == 0):
+            context["msg"] = "No search results found."
+        context["title_s"] = title_s
+        context["descr_s"] = descr_s
+        context["event_s"] = event_s
+        return render(request,"CalShare/search.html",context)
+        return redirect("explore")
+    else:
+        return redirect("index")
+
+import random
 def random_calendar(request):
-    pass
+    #return render(request, "CalShare/index.html")
+    cals = Calender.objects.all()
+    k = random.choice(cals)
+    return redirect("calendar", id=k.pk)
 
 def my_calendars(request):
     pass
@@ -59,11 +125,17 @@ def change_password_confirm(request):
 from django.http import JsonResponse
 
 
-def api_event_create(request):
+def api_event_create(request, parent_cal):
     if request.user.is_authenticated:
-        pass
+        context = {
+            "cal_owner": request.user,
+            "parent_cal": parent_cal,
+            "event_form": EventForm(),
+        }
+        print(f'api_event_create called. returning {context}')
+        return JsonResponse(context)
     else:
-        pass
+        return JsonResponse({})
 
 def profile(request, id):
     if request.user.is_authenticated and request.user.id == id:
@@ -83,8 +155,8 @@ def profile_change(request):
 
         form = UserForm(request.POST, request.FILES, instance= User.objects.get(pk=request.user.id))
         if form.is_valid():
+
             #replace old picture
-            print(User.objects.get(pk=request.user.id).image, "hi")
             if User.objects.get(pk=request.user.id).image != "":
                 os.remove(f'{MEDIA_ROOT}\\{User.objects.get(pk=request.user.id).image}')
             form.save()

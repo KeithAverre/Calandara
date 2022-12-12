@@ -1,0 +1,12 @@
+{% extends "CalShare/layout.html" %}
+{% load static %}
+
+{% block main %}
+    <p>Give the following information for your new calendar!</p>
+    <form action="{% url 'new_calendar' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ calendar_form.as_p }}
+    <input type="submit" value="Change">
+    <input type="reset" name="reset" value="Reset">
+    </form>
+{% endblock %}
